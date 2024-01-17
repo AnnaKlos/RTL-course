@@ -11,26 +11,32 @@ test("it shows two inputs and a button", () => {
   expect(button).toBeInTheDocument();
 });
 
-test("it calls onUserAdd when the form is submitted", async () => {
-  const argList = [];
-  const callback = (...args) => {
-    argList.push(args);
-  };
-  render(<UserForm onUserAdd={callback} />);
+test("it calls onUserAdd when the form is submitted", () => {
+  const mock = jest.fn();
+  // const argList = [];
+  // const callback = (...args) => {
+  //   argList.push(args);
+  // };
+  // render(<UserForm onUserAdd={callback} />);
+  render(<UserForm onUserAdd={mock} />);
+  
+  const nameInput = screen.getByRole("textbox", { name: /name/i });
+  const emailInput = screen.getByRole("textbox", { name: /email/i });
+  // const [nameInput, emailInput] = screen.getAllByRole("textbox");
 
-  const [nameInput, emailInput] = screen.getAllByRole("textbox");
-
-  await user.click(nameInput);
-  await user.keyboard("test");
-  await user.click(emailInput);
-  await user.keyboard("test@test.com");
+  user.click(nameInput);
+  user.keyboard("test");
+  user.click(emailInput);
+  user.keyboard("test@test.com");
 
   const button = screen.getByRole("button");
 
-  await user.click(button);
+  user.click(button);
 
-  expect(argList).toHaveLength(1);
-  expect(argList[0][0]).toEqual({ name: "test", email: "test@test.com" });
+  expect(mock).toHaveBeenCalled();
+  expect(mock).toHaveBeenCalledWith({ name: "test", email: "test@test.com" });
+  // expect(argList).toHaveLength(1);
+  // expect(argList[0][0]).toEqual({ name: "test", email: "test@test.com" });
 });
 
 // test('name', () => {
