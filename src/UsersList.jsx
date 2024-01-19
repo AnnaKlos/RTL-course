@@ -1,9 +1,9 @@
 import React from "react";
 
 export default function UsersList({ users }) {
-  const renderUsers = users.map((user) => {
+  const renderUsers = users?.map((user) => {
     return (
-      <tr key={user.name}>
+      <tr key={user?.name}>
         <td>{user?.name}</td>
         <td>{user?.email}</td>
       </tr>
@@ -17,7 +17,7 @@ export default function UsersList({ users }) {
           <th>Email</th>
         </tr>
       </thead>
-      <tbody>{renderUsers}</tbody>
+      <tbody data-testid="users">{renderUsers}</tbody>
     </table>
   );
 }
