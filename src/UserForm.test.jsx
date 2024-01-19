@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 import UserForm from "./UserForm";
 
 test("it shows two inputs and a button", () => {
@@ -19,7 +18,7 @@ test("it calls onUserAdd when the form is submitted", () => {
   // };
   // render(<UserForm onUserAdd={callback} />);
   render(<UserForm onUserAdd={mock} />);
-  
+
   const nameInput = screen.getByRole("textbox", { name: /name/i });
   const emailInput = screen.getByRole("textbox", { name: /email/i });
   // const [nameInput, emailInput] = screen.getAllByRole("textbox");
